@@ -22,49 +22,50 @@
 
 ![在这里插入图片描述](image/bb21780dfb964e969aadc8f605308fe1.png)
 伸缩与自适应情况
-![在这里插入图片描述](image/da54694fb4d34f55bb595ef0e878f1da.png)
 
-![在这里插入图片描述](image/0bece01eb83b447fa8012149312ed725.png)
+![](image/da54694fb4d34f55bb595ef0e878f1da.png)
+
+![](image/0bece01eb83b447fa8012149312ed725.png)
 ## 功能实现
 数据采集，数据源之一：最近热门电影，页面更新频率是一周更新一次。
-![在这里插入图片描述](image/7c65fcfb24e647829f7b62142083f281.png)
+![](image/7c65fcfb24e647829f7b62142083f281.png)
 数据采集，存入.csv文件
 
-![在这里插入图片描述](image/273d3498f9ea44d2b6f2fcaf9b8afcb7.png)
-![在这里插入图片描述](image/8dbfb015b1e0408c920dd6eda36ed03b.png)
+![](image/273d3498f9ea44d2b6f2fcaf9b8afcb7.png)
+![](image/8dbfb015b1e0408c920dd6eda36ed03b.png)
 存入数据库
 ![](image/dba31ef427db423aacf2bf4ea089e2c3.png)
 
 数据源2：正在上映的
-![在这里插入图片描述](image/dd7272abfb33414e86f6bcead04b778f.png)
-![在这里插入图片描述](image/4397768439fd4725b7148c0118b6f943.png)
+![](image/dd7272abfb33414e86f6bcead04b778f.png)
+![](image/4397768439fd4725b7148c0118b6f943.png)
 
 ## 页面记录
-![在这里插入图片描述](image/5821014f7a3b456a8e88063497c7da2f.png)业务逻辑实现样例，登录与注册页面。
+![](image/5821014f7a3b456a8e88063497c7da2f.png)业务逻辑实现样例，登录与注册页面。
 流程如下：
-![在这里插入图片描述](image/4e92992ac61a4af993091313623b1d21.png)
+![](image/4e92992ac61a4af993091313623b1d21.png)
 
-![image-20250425115148366](image/image-20250425115148366.png)![image-20250425115237483](image/image-20250425115237483.png)业务逻辑实现，面向电影制作人的页面：首页、搜索、影库数据分析（时间分析、评分分析、地区分析、导演与演员分析）、词云（评论词云图、标题词云图、简介词云图、演员名词词云图）。
+![](image/image-20250425115148366.png)![image-20250425115237483](image/image-20250425115237483.png)业务逻辑实现，面向电影制作人的页面：首页、搜索、影库数据分析（时间分析、评分分析、地区分析、导演与演员分析）、词云（评论词云图、标题词云图、简介词云图、演员名词词云图）。
 
 ①首页默认显示的为“最热电影”，面向从业者，需要关注的为一手消息。当前最热门的电影种类为剧情片，除此之外显示了热门电影的个数、最高评分、出场最多演员、制片国家等数据。各类表主要使用echarts.js制作。
-![在这里插入图片描述](image/a2fd8c85cf7c496288928c808102b38a.png)
+![](image/a2fd8c85cf7c496288928c808102b38a.png)
 
 点击电影名称跳转到预告片页面，点击海报显示海报大图。
-![在这里插入图片描述](image/4f14ff24f5254eecac57584bf4e6c6f6.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c5fff9e239b4440abf47c961942455db.png)
-![在这里插入图片描述](image/f73f202ee54d4d8195e2d684f313c4a1.png)
+![](image/4f14ff24f5254eecac57584bf4e6c6f6.png)
+![](https://i-blog.csdnimg.cn/direct/c5fff9e239b4440abf47c961942455db.png)
+![](image/f73f202ee54d4d8195e2d684f313c4a1.png)
 ②搜索：默认显示热门电影数据库中排名第一的数据。
-![在这里插入图片描述](image/da8832fa624d40358fb724e10c347866.png)
+![](image/da8832fa624d40358fb724e10c347866.png)
 输入关键词，电影标题如果包含关键字，会形成列表渲染到页面，页面包含电影基础信息。
-![在这里插入图片描述](/5564b83c2e164419a51e0af7772ddc9b.png)
+![](/5564b83c2e164419a51e0af7772ddc9b.png)
 影库数据分析：主要包含四种分析表。评分分析表：可以根据电影类型看到该类型电影最多评分分布在哪一范围，可以切换为柱状图，也可以观测数据文本视图。
-![在这里插入图片描述](image/536966775d744640b6dc2abb55255b0b.png)
-![在这里插入图片描述](image/13ecd017264d40359e3a57afbc97a0c4.png)
+![](image/536966775d744640b6dc2abb55255b0b.png)
+![](image/13ecd017264d40359e3a57afbc97a0c4.png)
 
-![在这里插入图片描述](image/b6fc4b8dfae94fd6bcb0f1b6be695762.png)
-![在这里插入图片描述](image/2420ffdbad704bd3bd4a8c8e518daed3.png)
-![在这里插入图片描述](image/7aa7565ebfc8463eb6df01d7dbf29e40.png)
-![在这里插入图片描述](image/496d0ebcfbad4cd792649c55e8b49bc1.png)
-![在这里插入图片描述](image/d175db686bba4ee4a105376b28a72c77.png)
+![](image/b6fc4b8dfae94fd6bcb0f1b6be695762.png)
+![](image/2420ffdbad704bd3bd4a8c8e518daed3.png)
+![](image/7aa7565ebfc8463eb6df01d7dbf29e40.png)
+![](image/496d0ebcfbad4cd792649c55e8b49bc1.png)
+![](image/d175db686bba4ee4a105376b28a72c77.png)
 ④词云图：评论词云图，输入关键词或者电影全称，显示该电影对应的词云，标题词云图、简介词云图、演员名词词云图还在写后端逻辑。
-![在这里插入图片描述](image/3723966fcf774f6b99674bbe176c8e6d.png)
+![](image/3723966fcf774f6b99674bbe176c8e6d.png)
