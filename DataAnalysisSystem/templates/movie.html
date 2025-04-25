@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>电影预告片</title>
+    <meta name="description" content="">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+  </head>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    video{
+      position:fixed;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+  </style>
+  <body>
+    <video controls loop autoplay muted src="{{movieUrl}}"></video>
+  </body>
+</html>

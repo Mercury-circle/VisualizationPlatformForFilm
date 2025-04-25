@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="description" content="">
+    <meta name="referrer" content="no-referrer">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Custom Font Icons CSS-->
+    <link rel="stylesheet" href="/static/css/font.css">
+    <!-- Google fonts - Muli-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <header class="header">
+      <nav class="navbar navbar-expand-lg">
+      <!--搜索功能-->
+        <div class="search-panel">
+          <div class="search-inner d-flex align-items-center justify-content-center">
+            <div class="close-btn">Close <i class="fa fa-close"></i></div>
+            <form id="searchForm" action="/search">
+              <div class="form-group">
+                <input type="search" name="search" placeholder="您想要搜索哪部电影...">
+                <button type="submit" class="submit">Search</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+          <div class="navbar-header">
+            <!-- Navbar Header--><a href="index.html" class="navbar-brand">
+              <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">电影数据分析</strong><strong>可视化系统</strong></div>
+              <div class="brand-text brand-sm"><strong class="text-primary">数据</strong><strong>展板</strong></div></a>
+            <!-- Sidebar Toggle Btn-->
+            <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
+          </div>
+          <div class="right-menu list-inline no-margin-bottom">
+            <div class="list-inline-item"><a href="#" class="search-open nav-link"><i class="icon-magnifying-glass-browser"></i></a></div>
+            <div class="list-inline-item dropdown"><a id="navbarDropdownMenuLink1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link messages-toggle"><i class="icon-email"></i><span class="badge dashbg-1">5</span></a>
+              <div aria-labelledby="navbarDropdownMenuLink1" class="dropdown-menu messages"><a href="#" class="dropdown-item message d-flex align-items-center">
+                  <div class="profile"><img src="/static/img/avatar-3.jpg" alt="..." class="img-fluid">
+                    <div class="status online"></div>
+                  </div>
+                  <div class="content">   <strong class="d-block">Nadia Halsey</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">9:30am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
+                  <div class="profile"><img src="/static/img/avatar-2.jpg" alt="..." class="img-fluid">
+                    <div class="status away"></div>
+                  </div>
+                  <div class="content">   <strong class="d-block">Peter Ramsy</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">7:40am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
+                  <div class="profile"><img src="/static/img/avatar-1.jpg" alt="..." class="img-fluid">
+                    <div class="status busy"></div>
+                  </div>
+                  <div class="content">   <strong class="d-block">Sam Kaheil</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">6:55am</small></div></a><a href="#" class="dropdown-item message d-flex align-items-center">
+                  <div class="profile"><img src="/static/img/avatar-5.jpg" alt="..." class="img-fluid">
+                    <div class="status offline"></div>
+                  </div>
+                  <div class="content">   <strong class="d-block">Sara Wood</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">10:30pm</small></div></a><a href="#" class="dropdown-item text-center message"> <strong>See All Messages <i class="fa fa-angle-right"></i></strong></a></div>
+            </div>
+
+            <!-- Languages dropdown    -->
+            <div class="list-inline-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle">
+              <img src="/static/img/flags/16/CN.png" alt="Chinese"><span class="d-none d-sm-inline-block">ZH</span></a>
+              <div aria-labelledby="languages" class="dropdown-menu">
+                <a rel="nofollow" href="#" class="dropdown-item">
+                  <img src="/static/img/flags/16/GB.png" alt="English" class="mr-2">
+                  <span>EN</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Log out               -->
+            <div class="list-inline-item logout">
+              <a id="logout" href="/loginOut" class="nav-link">
+                <span class="d-none d-sm-inline">Logout </span>
+                <i class="icon-logout"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="d-flex align-items-stretch">
+      <!-- Sidebar Navigation-->
+      <nav id="sidebar">
+        <!-- Sidebar Header-->
+        <div class="sidebar-header d-flex align-items-center">
+          <div class="avatar"><img src="/static/img/avatar-6.jpg" alt="..." class="img-fluid rounded-circle"></div>
+          <div class="title">
+            <h1 class="h5">{{email}}</h1>
+            <p>管理员</p>
+          </div>
+        </div>
+
+        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        <ul class="list-unstyled">
+          <li>
+            <a href="/home"><i class="icon-home"></i>首页</a>
+          </li>
+          <li><a href="/search/1"> <i class="icon-grid"></i>搜索</a></li>
+          <li><a href="#DataAnalysisSystem" aria-expanded="true" data-toggle="collapse"> <i class="icon-chart"></i>数据表</a>
+            <ul id="DataAnalysisSystem" class="list-unstyled collapse show">
+              <li ><a href="/chart/time">时间分析表</a></li>
+              <li class="active" style="padding-left: 0px"><a href="/chart/rate/all">评分分析表</a></li>
+              <li style="padding-left: 0px"><a href="#">Page</a></li>
+            </ul>
+          </li>
+          <li><a href="#wordCloud" aria-expanded="false" data-toggle="collapse" class="collapsed"> <i class="icon-cloud"></i>词云</a>
+            <ul id="wordCloud" class="collapse list-unstyled ">
+              <li><a href="/wordcloud/comment">评论词云图</a></li>
+              <li><a href="/wordcloud/time">标题词云图</a></li>
+              <li><a href="/wordcloud/rate/all">简介词云图</a></li>
+              <li><a href="/wordcloud/region">演员名词词云图</a></li>
+            </ul>
+          </li>
+          <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
+          <li><a href="/login"> <i class="icon-logout"></i>Login page </a></li>
+        </ul><span class="heading">Extras</span>
+        <ul class="list-unstyled">
+          <li> <a href="#"> <i class="icon-settings"></i>Demo </a></li>
+          <li> <a href="#"> <i class="icon-writing-whiteboard"></i>Demo </a></li>
+          <li> <a href="#"> <i class="icon-chart"></i>Demo </a></li>
+        </ul>
+      </nav>
+      <!-- Sidebar Navigation end-->
+      <div class="page-content">
+        <!-- Page Header-->
+        <div class="page-header no-margin-bottom">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Charts</h2>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Charts        </li>
+          </ul>
+        </div>
+        <section>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="card mb-4">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  {% if type == 'all' %}
+                    <a href="/chart/rate/all" class="btn btn-secondary active">全部</a>
+                  {% else %}
+                    <a href="/chart/rate/all" class="btn btn-secondary">全部</a>
+                  {% endif %}
+                  {% for item in typeList %}
+                    {% if type == item %}
+                      <a href="/chart/rate/{{item}}" class="btn btn-secondary active">{{item}}</a>
+                    {% else %}
+                      <a href="/chart/rate/{{item}}" class="btn btn-secondary">{{item}}</a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="line-chart block chart">
+                  <div class="title"><strong>电影评分折线图</strong></div>
+                  <div id="rate" style="width:100%;height:450px;padding-top:10px;margin-left:10px"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-8">
+                <div class="chart block">
+                  <div class="title"> <strong>电影评分星级饼状图</strong></div>
+                  <div class="bar-chart chart margin-bottom-sm">
+                    <div class="search-panel">
+                      <div class="search-inner d-flex align-items-center justify-content-center">
+                        <form style="margin-top:15px" action="/chart/rate/all" class="form-inline" method="POST">
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" name="searchName" class="form-control" placeholder="请输入电影名称...">
+                            <button type="submit" style="margin-left:15px;margin-top:8px;" class="btn btn-primary mb-2">检索</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bar-chart chart">
+                    <div id="stars" style="width:100%;height:450px;padding-top:10px;margin-left:10px"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="pie-chart chart block">
+                  <h6>电影评分分布饼状图</h6>
+                  <div style="width:100%;height:450px;padding-top:10px;margin-left:10px">gg</div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="doughnut-chart chart block">
+                  <div class="title"><strong>Pie Chart Example</strong></div>
+                  <div class="doughnut-chart chart margin-bottom-sm">
+                    <canvas id="doughnutChartCustom1"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="polar-chart chart block">
+                  <div class="title"><strong>Polar Chart Example</strong></div>
+                  <div class="polar-chart chart margin-bottom-sm">
+                    <canvas id="polarChartCustom"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="radar-chart chart block">
+                  <div class="title"><strong>Radar Chart Example</strong></div>
+                  <div class="radar-chart chart margin-bottom-sm">
+                    <canvas id="radarChartCustom"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="footer">
+          <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+              <p class="no-margin-bottom">Design by Mercury_circle</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+    <script src="/static/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/static/js/charts-home.js"></script>
+    <script src="/static/js/front.js"></script>
+
+    <script src="/static/js/echarts.js"></script>
+    <script>
+      var chartDom = document.getElementById('rate');
+      var myChart = echarts.init(chartDom, null, {
+        renderer: 'svg'
+      });
+      var option;
+
+      option = {
+        title: {
+          text: '电影评分分布'
+        },
+        tooltip: {
+          trigger: 'axis', // 触发方式为坐标轴
+          formatter: function (params) {
+            // params 是一个数组，包含当前点的信息
+            var tip = '';
+            params.forEach(function (item) {
+              // 自定义提示框内容
+              tip += `评分: ${item.name}<br/>`;
+              tip += `电影数量: ${item.value} 部<br/>`; // 添加单位
+            });
+            return tip;
+          }
+        },
+        legend: {
+          textStyle: {color: '#ffffff'}
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            dataView: { readOnly: false },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: {{ row | tojson }} // 横坐标：评分
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value} 部' // 纵坐标添加单位
+          }
+        },
+        series: [
+          {
+            name: '电影数量',
+            type: 'line',
+            data: {{ columns | tojson }}, // 纵坐标：电影数量
+            markPoint: {
+              data: [
+                {
+                  type: 'max', // 最高点
+                  name: '最高点',
+                  label: {
+                    formatter: '{c}'
+                  }
+                }
+              ]
+            }
+          }
+        ],
+      };
+      option && myChart.setOption(option);
+    </script>
+
+    <script>
+      var chartDom = document.getElementById('stars');
+      var myChart = echarts.init(chartDom, null, {
+        renderer: 'svg'
+      });
+      var option;
+
+      option = {
+        title: {
+          text: '{{searchName}}电影星级占比',
+          subtext: 'Data from DB',
+          left: 'center',
+          textStyle: {color: '#ffffff'}
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+          bottom: 10,
+          left: 'center',
+          data: ['5☆','4☆','3☆','2☆','1☆'],
+          textStyle: {color: '#ffffff'}
+        },
+        series: [
+          {
+            type: 'pie',
+            radius: '65%',
+            center: ['50%', '50%'],
+            selectedMode: 'single',
+            data: {{starsData | tojson}},
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            },
+          }
+        ]
+      };
+
+      option && myChart.setOption(option);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+/* your styles go here */
+.fatDisplay {
+ width:100px;
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 6;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.thinDisplay {
+ width:70px;
+}
+
+.thinnerDisplay {
+ width:40px;
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 6;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+.thinnestDisplay {
+ width:10px;
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 6;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.bar-chart.chart img[src]:not([src=""]) {
+    /* 仅当 src 属性存在且不为空时生效 */
+    width: 50%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
+    padding: 2px;
+    box-shadow: 0 4px 12px #17a2b8;
+}
+

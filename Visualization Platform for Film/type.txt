@@ -1,0 +1,24 @@
+directors 电影导演
+rate 电影评分
+title 电影名称
+actors 电影演员
+cover 电影封面
+detail_link 电梯
+year 电影年份
+types 电影类型
+region 电影国家
+lang 电影语言
+time 电影上映时间
+duration 电影片长
+star 电影星级
+summary 电影简介
+comments(user,star,time,content) 电影短评（短评用户，短评评分，评论时间，评论内容）
+
+imgList 图片列表
+movie_url 预告片链接
+
+
+https://movie.douban.com/j/subject_abstract?subject_id=36498717
+https://movie.douban.com/subject/36498717/?tag=%E7%83%AD%E9%97%A8&from=gaia_video
+
+https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0
