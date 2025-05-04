@@ -9,28 +9,41 @@ from utils.getRegionData import *
 from utils.getDirActorData import *
 from utils.getCommentsCloud import *
 
+
 app = Flask(__name__)
 app.secret_key = 'This is secret_key you know ?'
+
+
 
 #路由，视图函数
 #登录
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
-        return  render_template('login.html')
+        return render_template('login.html')
+
     elif request.method == 'POST':
-        request.form = dict(request.form)
-        def filter_fn(item):
-            return request.form['email'] in item and request.form['password'] in item
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-        users = query.querys('select * from user',[],'select')
-        filter_user = list(filter(filter_fn,users))
+        # 查询用户信息
+        users = query.querys("SELECT * FROM user WHERE email = %s", (email,), 'select')
 
-        session['email'] = request.form['email']
-        if len(filter_user):
-            return redirect('/home')
-        else:
-            return render_template('error.html',message='邮箱或密码错误')
+        # 检查是否找到了用户并且密码匹配
+        user_found = False
+        for user in users:
+            if user[1] == email and user[2] == password:  # 直接比对邮箱和密码
+                user_found = True
+                session['email'] = email
+                session['role'] = user[3]  # 假设角色字段是元组中的第四个元素
+
+                if user[3] == 1:  # 如果角色为1，表示管理员
+                    return redirect('/home')
+                else:
+                    return redirect('/userhome')  # 普通用户
+
+        if not user_found:
+            return render_template('error.html', message='邮箱或密码错误')
 
 #退出登录
 @app.route('/loginOut')
@@ -236,6 +249,71 @@ def userHome():
         typeColumns = typeColumns
     )
 
+
+# 分类列表页路由
+@app.route('/category/', defaults={'type': 'all'})
+@app.route('/category/<type>')
+def category(type):
+    # 获取所有电影数据
+    all_films = getFilmInfoTable()
+
+    # 过滤电影数据
+    if type == 'all':
+        film_list = all_films
+    else:
+        film_list = [film for film in all_films if type in film[8].split(',')]  # 假设类型在第8列
+
+    return render_template(
+        'category.html',
+        film_list=film_list,
+        current_type=type,
+        type_list=getAllTypes(),
+        movie_count=len(film_list))
+
+# #电影分类页面
+# @app.route('/movie/', defaults={'type': 'all'})
+# @app.route('/movie/<type>',methods=['GET','POST'])
+# def movieDetail(type):
+#     email = session.get('email')
+#     movieCount, maxRate, maxActors, maxRegion, typeCount, maxLang = getFilmData()
+#     typeDic = getTypesPieChart()
+#     row, columns = getRateLineChart()
+#
+#     # 获取所有电影数据
+#     all_films = getFilmInfoTable()
+#
+#     # 根据类型过滤电影
+#     if type == 'all':
+#         filmInfoTable = all_films
+#     else:
+#         filmInfoTable = []
+#         for film in all_films:
+#             # 电影类型存储在索引8，格式为逗号分隔的字符串（如"剧情,动作"）
+#             film_types = film[8].split(',')
+#             if type in film_types:
+#                 filmInfoTable.append(film)
+#
+#     typeList = getAllTypes()
+#     typeRow, typeColumns = getRateDataByType(type)
+#
+#     return render_template(
+#         'category.html',
+#         email=email,
+#         movieCount=movieCount,
+#         maxRate=maxRate,
+#         maxActors=maxActors,
+#         maxRegion=maxRegion,
+#         typeCount=typeCount,
+#         maxLang=maxLang,
+#         typeDic=typeDic,
+#         row=row,
+#         columns=columns,
+#         filmInfoTable=filmInfoTable,
+#         typeList=typeList,
+#         type=type,
+#         typeRow=typeRow,
+#         typeColumns=typeColumns
+#     )
 
 if __name__ == '__main__':
     app.run(debug=True)

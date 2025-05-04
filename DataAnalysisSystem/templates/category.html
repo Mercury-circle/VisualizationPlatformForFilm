@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>userHome</title>
+    <meta name="description" content="">
+    <meta name="referrer" content="no-referrer">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Custom Font Icons CSS-->
+    <link rel="stylesheet" href="/static/css/font.css">
+    <!-- Google fonts - Muli-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+    <!-- 新增电影详情页专用样式 -->
+    <style>
+        /* 新增电影卡片样式 */
+        .movie-card {
+            background: #2d3035;
+            border: 1px solid #34373d;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .movie-poster {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .movie-rating {
+            position: absolute;
+            bottom: 2px;
+            left: 5px;
+            color: floralwhite;
+            font-weight: 700;
+        }
+
+        .movie-info {
+            padding: 10px;
+        }
+
+        .movie-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .movie-meta {
+            color: #8a8d93;
+            font-size: 0.9rem;
+        }
+
+        /* 新增英雄区域 */
+        .hero-section {
+            height: 70vh;
+            background: linear-gradient(rgba(34,37,42,0.9), rgba(34,37,42,0.9)),
+                        url('/static/img/hero-bg.jpg');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            background:#22252a;
+            border: none;
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+        }
+
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #DB6574;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: white;
+        }
+
+        /* 分类导航 */
+        .genre-nav {
+            background: #22252a;
+            padding: 20px 0;
+        }
+
+        .genre-link {
+            color: #8a8d93;
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .genre-link:hover {
+            color: #DB6574;
+            text-decoration: none;
+        }
+
+
+
+        /* 新增样式 */
+        .movie-card {
+            transition: transform 0.3s;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .movie-thumbnail {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .overlay-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(45, 48, 53, 0.9);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        .movie-thumbnail:hover .overlay-info {
+            opacity: 1;
+        }
+
+        .genre-nav .btn {
+            min-width: 100px;
+            transition: all 0.3s;
+        }
+
+        .genre-nav .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .social-links i {
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover i {
+            color: #fff !important;
+        }
+         /* 新增轮播图样式 */
+        .carousel-movies {
+            margin: 0 -15px;
+        }
+
+        .carousel-item {
+            padding: 0 15px;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .movie-carousel-card {
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .movie-carousel-card:hover {
+            transform: scale(1.02);
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+        .genre-nav .more-link {
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .genre-nav .more-link:hover {
+            text-decoration: underline;
+        }
+
+         html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+            padding-top: 60px; /* 根据导航栏的高度调整 */
+            padding-bottom: 60px; /* 根据页脚的高度调整 */
+            background-color:#22252a;
+        }
+
+        .footer {
+            /* 不需要设置 position: fixed 或 position: sticky */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background: rgba(34,37,42);">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="dashtext-1">MOVIE</span>
+                <span class="dashtext-2">UNIVERSE</span>
+            </a>
+            <div class="genre-nav d-none d-lg-block">
+                <!-- 修正导航链接 -->
+                <a href="/category/all"
+                   class="genre-link {% if current_type == 'all' %}active{% endif %}">
+                    全部
+                </a>
+
+                {% for item in type_list %}
+                    <a href="/category/{{item}}"
+                       class="genre-link {% if current_type == item %}active{% endif %}">
+                        {{item}}
+                    </a>
+                {% endfor %}
+            </div>
+
+            <div class="right-menu">
+                <a href="/login" class="btn btn-outline-danger">登录/注册</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <main class="content" style="padding-top: 80px; padding-bottom: 40px;">
+        <div class="container py-5">
+            <!-- 标题区 -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-white">
+                    {% if current_type == 'all' %}
+                        全部电影（{{ movie_count }}部）
+                    {% else %}
+                        "{{ current_type }}" 电影（{{ movie_count }}部）
+                    {% endif %}
+                </h2>
+
+                <!-- 排序下拉菜单 -->
+                <div class="sort-filter">
+                    <select class="form-control bg-dark text-white" style="width: 180px;">
+                        <option>按评分排序</option>
+                        <option>按上映时间排序</option>
+                        <option>按热度排序</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 电影列表 -->
+            <div class="row">
+                {% for film in film_list %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card h-100">
+                        <a href="/movie/{{ film[0] }}" class="d-block position-relative">
+                            <!-- 电影海报 -->
+                            <div class="movie-poster"
+                                 style="background-image: url('{{ film[5] }}')">
+                                <div class="movie-rating">
+                                    {{ film[2] }}
+                                </div>
+                            </div>
+
+                            <!-- 电影信息 -->
+                            <div class="movie-info">
+                                <h5 class="movie-title">{{ film[1] }}</h5>
+                                <div class="movie-meta">
+                                    <p class="mb-1">
+                                        <i class="fa fa-clock-o"></i>
+                                        {{ film[12] }}分钟
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="fa fa-calendar"></i>
+                                        {{ film[11] }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-12">
+                    <div class="alert alert-dark text-center">
+                        当前分类暂时没有电影哦~
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- 分页控件 -->
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link bg-dark border-dark" href="#">上一页</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link bg-dark border-dark" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link bg-dark border-dark" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link bg-dark border-dark" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link bg-dark border-dark" href="#">下一页</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </main>
+
+    <!-- 页脚（保持原有不变） -->
+    <footer class="py-5 bg-gray-dark">
+        <!-- 原有页脚内容 -->
+    </footer>
+
+    <!-- 新增分类页专用脚本 -->
+    <script>
+        // 初始化排序功能
+        $('.sort-filter select').change(function() {
+            const sortType = $(this).val();
+            // 这里添加排序逻辑
+            console.log('当前排序方式：', sortType);
+        });
+
+        // 分页点击处理
+        $('.pagination .page-item:not(.disabled)').click(function() {
+            const pageNum = $(this).find('.page-link').text();
+            // 这里添加分页请求逻辑
+            console.log('跳转到页码：', pageNum);
+        });
+    </script>
+</body>
+</html>

@@ -263,17 +263,17 @@
             </a>
             <div class="genre-nav d-none d-lg-block">
                 {% if type == 'all' %}
-                    <a href="/userHome?type=all" class="genre-link active">全部</a>
+                    <a href="/category/all" class="genre-link active">全部</a>
                 {% else %}
-                    <a href="/userHome?type=all" class="genre-link">全部</a>
+                    <a href="/category/all" class="genre-link">全部</a>
                 {% endif %}
 
                 <!-- 默认显示前五个类型 -->
                 {% for item in typeList[:5] %}
                     {% if type == item %}
-                        <a href="/userHome?type={{item}}" class="genre-link active">{{item}}</a>
+                        <a href="/category/{{item}}" class="genre-link active">{{item}}</a>
                     {% else %}
-                        <a href="/userHome?type={{item}}" class="genre-link">{{item}}</a>
+                        <a href="/category/{{item}}" class="genre-link">{{item}}</a>
                     {% endif %}
                 {% endfor %}
 
@@ -281,9 +281,9 @@
                 <div id="moreTypes" style="display:none;">
                     {% for item in typeList[5:] %}
                         {% if type == item %}
-                            <a href="/userHome?type={{item}}" class="genre-link active">{{item}}</a>
+                            <a href="/category/{{item}}" class="genre-link active">{{item}}</a>
                         {% else %}
-                            <a href="/userHome?type={{item}}" class="genre-link">{{item}}</a>
+                            <a href="/category/{{item}}" class="genre-link">{{item}}</a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -302,7 +302,6 @@
 
     <!-- 本周热门电影轮播 -->
     <section class="py-5" style="background:rgba(34,37,42,0.95);margin-top:80px">
-
         <div class="container">
             <div class="search-box">
                 <form action="/search">
@@ -364,7 +363,7 @@
     <!-- 分类推荐区数据绑定示例 -->
     <section class="py-5 bg-gray-darker" >
         <div class="container">
-            <h3 class="text-white mb-4">热门类型推荐</h3>
+            <h3 class="text-white mb-4">热门电影推荐</h3>
             <div class="row">
                 {% for item in filmInfoTable[:6] %}
                 <div class="col-lg-2 col-md-4 col-6 mb-4">
@@ -431,16 +430,6 @@
                 interval: 5000,
                 pause: "hover"
             });
-
-            // 卡片悬停效果
-            $('.movie-carousel-card').hover(
-                function() {
-                    $(this).css('transform', 'translateY(-10px)');
-                },
-                function() {
-                    $(this).css('transform', 'translateY(0)');
-                }
-            );
         });
     </script>
 
