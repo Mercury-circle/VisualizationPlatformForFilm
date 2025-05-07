@@ -30,6 +30,11 @@
     <!-- 新增电影详情页专用样式 -->
     <style>
         /* 新增电影卡片样式 */
+         .avatar {
+    width: 60px;
+    margin-right: 10px;
+    padding: 10px;
+}
         .movie-card {
             background: #2d3035;
             border: 1px solid #34373d;
@@ -113,7 +118,7 @@
         /* 分类导航 */
         .genre-nav {
             background: #22252a;
-            padding: 20px 0;
+
         }
 
         .genre-link {
@@ -262,7 +267,9 @@
             </div>
 
             <div class="right-menu">
-                <a href="/login" class="btn btn-outline-danger">登录/注册</a>
+<!--                <a href="/login" class="btn btn-outline-danger">登录/注册</a>-->
+                                    <div class="avatar"><img src="/static/avatar.jpg" alt="..." class="img-fluid rounded-circle"></div>
+
             </div>
         </div>
     </nav>
@@ -281,75 +288,97 @@
                 </h2>
 
                 <!-- 排序下拉菜单 -->
-                <div class="sort-filter">
-                    <select class="form-control bg-dark text-white" style="width: 180px;">
-                        <option>按评分排序</option>
-                        <option>按上映时间排序</option>
-                        <option>按热度排序</option>
-                    </select>
-                </div>
+
+
+                <!-- 排序下拉菜单 -->
+                    <div class="sort-filter">
+                        <select class="form-control bg-dark text-white" style="width: 180px;" id="sort-select">
+                            <option value="popular">按热度排序</option>
+                            <option value="rate" {% if sort_by =='rate'%} selected
+                                    {% endif %}>按评分排序</option>
+                            <option value="releaseDate" {% if sort_by =='releaseDate' %}selected{% endif %}>按上映时间排序</option>
+
+                        </select>
+                    </div>
+<!--                <div class="sort-filter">-->
+<!--                    <select class="form-control bg-dark text-white" style="width: 180px;">-->
+<!--                        <option>按评分排序</option>-->
+<!--                        <option>按上映时间排序</option>-->
+<!--                        <option>按热度排序</option>-->
+<!--                    </select>-->
+<!--                </div>-->
             </div>
+
+             电影列表
+<!--            <div class="row">-->
+<!--                {% for film in film_list %}-->
+<!--                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">-->
+<!--                    <div class="movie-card h-100">-->
+<!--                        <a href="/movie/{{ film[0] }}" class="d-block position-relative">-->
+<!--                            &lt;!&ndash; 电影海报 &ndash;&gt;-->
+<!--                            <div class="movie-poster"-->
+<!--                                 style="background-image: url('{{ film[5] }}')">-->
+<!--                                <div class="movie-rating">-->
+<!--                                    {{ film[2] }}-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            &lt;!&ndash; 电影信息 &ndash;&gt;-->
+<!--                            <div class="movie-info">-->
+<!--                                <h5 class="movie-title">{{ film[1] }}</h5>-->
+<!--                                <div class="movie-meta">-->
+<!--                                    <p class="mb-1">-->
+<!--                                        <i class="fa fa-clock-o"></i>-->
+<!--                                        {{ film[12] }}分钟-->
+<!--                                    </p>-->
+<!--                                    <p class="mb-0">-->
+<!--                                        <i class="fa fa-calendar"></i>-->
+<!--                                        {{ film[11] }}-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {% else %}-->
+<!--                <div class="col-12">-->
+<!--                    <div class="alert alert-dark text-center">-->
+<!--                        当前分类暂时没有电影哦~-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--            </div>-->
 
             <!-- 电影列表 -->
-            <div class="row">
-                {% for film in film_list %}
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="movie-card h-100">
-                        <a href="/movie/{{ film[0] }}" class="d-block position-relative">
-                            <!-- 电影海报 -->
-                            <div class="movie-poster"
-                                 style="background-image: url('{{ film[5] }}')">
-                                <div class="movie-rating">
-                                    {{ film[2] }}
-                                </div>
-                            </div>
+<div class="row" id="movie-list">
+    {% for film in film_list %}
+    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="movie-card h-100">
+            <a href="/movie/{{ film[0] }}" class="d-block position-relative">
+                <!-- 电影海报 -->
+                <div class="movie-poster" style="background-image: url('{{ film[5] }}')">
+                    <div class="movie-rating">{{ film[2] }}</div>
+                </div>
 
-                            <!-- 电影信息 -->
-                            <div class="movie-info">
-                                <h5 class="movie-title">{{ film[1] }}</h5>
-                                <div class="movie-meta">
-                                    <p class="mb-1">
-                                        <i class="fa fa-clock-o"></i>
-                                        {{ film[12] }}分钟
-                                    </p>
-                                    <p class="mb-0">
-                                        <i class="fa fa-calendar"></i>
-                                        {{ film[11] }}
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
+                <!-- 电影信息 -->
+                <div class="movie-info">
+                    <h5 class="movie-title">{{ film[1] }}</h5>
+                    <div class="movie-meta">
+                        <p class="mb-1"><i class="fa fa-clock-o"></i> {{ film[12] }}分钟</p>
+                        <p class="mb-0"><i class="fa fa-calendar"></i> {{ film[11] }}</p>
                     </div>
                 </div>
-                {% else %}
-                <div class="col-12">
-                    <div class="alert alert-dark text-center">
-                        当前分类暂时没有电影哦~
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-dark text-center">当前分类暂时没有电影哦~</div>
+    </div>
+    {% endfor %}
+</div>
 
-            <!-- 分页控件 -->
-            <nav class="mt-5">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link bg-dark border-dark" href="#">上一页</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link bg-dark border-dark" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link bg-dark border-dark" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link bg-dark border-dark" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link bg-dark border-dark" href="#">下一页</a>
-                    </li>
-                </ul>
-            </nav>
+
         </div>
     </main>
 
@@ -360,19 +389,13 @@
 
     <!-- 新增分类页专用脚本 -->
     <script>
-        // 初始化排序功能
-        $('.sort-filter select').change(function() {
-            const sortType = $(this).val();
-            // 这里添加排序逻辑
-            console.log('当前排序方式：', sortType);
-        });
+    document.getElementById('sort-select').addEventListener('change', function () {
+        const selectedSort = this.value;
+        const url = new URL(window.location.href);
+        url.searchParams.set('sort', selectedSort);
+        window.location.href = url.toString();
+    });
 
-        // 分页点击处理
-        $('.pagination .page-item:not(.disabled)').click(function() {
-            const pageNum = $(this).find('.page-link').text();
-            // 这里添加分页请求逻辑
-            console.log('跳转到页码：', pageNum);
-        });
     </script>
 </body>
 </html>

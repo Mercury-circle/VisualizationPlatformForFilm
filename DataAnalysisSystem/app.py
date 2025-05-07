@@ -1,5 +1,5 @@
-import numpy
-from flask import Flask,request,render_template,session,redirect
+import numpy,copy
+from flask import Flask, request, render_template, session, redirect, jsonify
 from utils import query
 from utils.getFilmData import *
 from utils.getSearchData import *
@@ -8,7 +8,7 @@ from utils.getRateData import *
 from utils.getRegionData import *
 from utils.getDirActorData import *
 from utils.getCommentsCloud import *
-
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'This is secret_key you know ?'
@@ -250,70 +250,61 @@ def userHome():
     )
 
 
-# 分类列表页路由
 @app.route('/category/', defaults={'type': 'all'})
 @app.route('/category/<type>')
 def category(type):
     # 获取所有电影数据
     all_films = getFilmInfoTable()
 
+    # 初始化 sort_by 变量，默认为 rate
+    sort_by = request.args.get("sort", "popular")
+
     # 过滤电影数据
     if type == 'all':
         film_list = all_films
     else:
-        film_list = [film for film in all_films if type in film[8].split(',')]  # 假设类型在第8列
+        film_list = [film for film in all_films if type in film[8].split(',')]  # 类型在第8列
+
+    # 深拷贝 film_list 防止污染原始数据
+    sorted_film_list = copy.deepcopy(film_list)
+
+    # 根据 sort_by 参数排序
+    if sort_by == "rate":
+        # 按评分降序排序（rate字段在索引2）
+        def convert_rate(rate_str):
+            try:
+                return float(rate_str) if rate_str.strip() else 0.0
+            except ValueError:
+                return 0.0  # 如果转换失败，设置一个默认值
+
+        sorted_film_list = sorted(
+            sorted_film_list,
+            key=lambda x: convert_rate(x[2]),
+            reverse=True
+        )
+    elif sort_by == "releaseDate":
+        # 按上映时间降序排序（假设日期字段在索引11）
+        def parse_date(date_str):
+            try:
+                return datetime.strptime(date_str, '%Y-%m-%d')
+            except (ValueError, TypeError):
+                return datetime.min  # 或者使用其他默认日期
+
+        sorted_film_list = sorted(
+            sorted_film_list,
+            key=lambda x: parse_date(x[11]) if x[11] not in (None, '') else datetime.min,
+            reverse=True
+        )
 
     return render_template(
         'category.html',
-        film_list=film_list,
+        film_list=sorted_film_list,
         current_type=type,
         type_list=getAllTypes(),
-        movie_count=len(film_list))
+        movie_count=len(sorted_film_list),
+        sort_by=sort_by
+    )
 
-# #电影分类页面
-# @app.route('/movie/', defaults={'type': 'all'})
-# @app.route('/movie/<type>',methods=['GET','POST'])
-# def movieDetail(type):
-#     email = session.get('email')
-#     movieCount, maxRate, maxActors, maxRegion, typeCount, maxLang = getFilmData()
-#     typeDic = getTypesPieChart()
-#     row, columns = getRateLineChart()
-#
-#     # 获取所有电影数据
-#     all_films = getFilmInfoTable()
-#
-#     # 根据类型过滤电影
-#     if type == 'all':
-#         filmInfoTable = all_films
-#     else:
-#         filmInfoTable = []
-#         for film in all_films:
-#             # 电影类型存储在索引8，格式为逗号分隔的字符串（如"剧情,动作"）
-#             film_types = film[8].split(',')
-#             if type in film_types:
-#                 filmInfoTable.append(film)
-#
-#     typeList = getAllTypes()
-#     typeRow, typeColumns = getRateDataByType(type)
-#
-#     return render_template(
-#         'category.html',
-#         email=email,
-#         movieCount=movieCount,
-#         maxRate=maxRate,
-#         maxActors=maxActors,
-#         maxRegion=maxRegion,
-#         typeCount=typeCount,
-#         maxLang=maxLang,
-#         typeDic=typeDic,
-#         row=row,
-#         columns=columns,
-#         filmInfoTable=filmInfoTable,
-#         typeList=typeList,
-#         type=type,
-#         typeRow=typeRow,
-#         typeColumns=typeColumns
-#     )
 
 if __name__ == '__main__':
     app.run(debug=True)
