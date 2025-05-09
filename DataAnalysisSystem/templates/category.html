@@ -29,6 +29,14 @@
 
     <!-- 新增电影详情页专用样式 -->
     <style>
+        a{
+    color: #ffffff;
+    text-decoration: none;
+}
+a:hover{
+    color: #ffffff;
+    text-decoration: none;
+}
         /* 新增电影卡片样式 */
          .avatar {
     width: 60px;
@@ -78,7 +86,6 @@
             font-size: 0.9rem;
         }
 
-        /* 新增英雄区域 */
         .hero-section {
             height: 70vh;
             background: linear-gradient(rgba(34,37,42,0.9), rgba(34,37,42,0.9)),
@@ -130,8 +137,8 @@
         }
 
         .genre-link:hover {
-            color: #DB6574;
             text-decoration: none;
+            color:#8a8d93;
         }
 
 
@@ -240,6 +247,26 @@
         .footer {
             /* 不需要设置 position: fixed 或 position: sticky */
         }
+        /* 高亮显示选中的类型 */
+
+        nav.navbar a:hover {
+    color: #FFD700;
+}
+
+    .genre-link {
+    color: #ccc; /* 灰色 */
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+/* 当前选中的链接颜色 */
+.genre-link.active {
+    color: #FFD700; /* 金色，你可以换成你喜欢的颜色，比如红色 #ff0000 */
+    font-weight: bold; /* 可选：加粗显示选中项 */
+}
+
+
+
 
     </style>
 </head>
@@ -247,7 +274,7 @@
     <!-- 导航栏 -->
     <nav class="navbar navbar-expand-lg fixed-top" style="background: rgba(34,37,42);">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/userhome">
                 <span class="dashtext-1">MOVIE</span>
                 <span class="dashtext-2">UNIVERSE</span>
             </a>
@@ -279,12 +306,13 @@
         <div class="container py-5">
             <!-- 标题区 -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="text-white">
+                 <h2 class="text-white">
                     {% if current_type == 'all' %}
-                        全部电影（{{ movie_count }}部）
+                        <span class="active-type">全部电影</span>
                     {% else %}
-                        "{{ current_type }}" 电影（{{ movie_count }}部）
+                        <a href="?type=all" class="{% if current_type == 'all' %}active{% endif %}">{{current_type}}</a>
                     {% endif %}
+                    （{{ movie_count }}部）
                 </h2>
 
                 <!-- 排序下拉菜单 -->
@@ -310,75 +338,34 @@
             </div>
 
              电影列表
-<!--            <div class="row">-->
-<!--                {% for film in film_list %}-->
-<!--                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">-->
-<!--                    <div class="movie-card h-100">-->
-<!--                        <a href="/movie/{{ film[0] }}" class="d-block position-relative">-->
-<!--                            &lt;!&ndash; 电影海报 &ndash;&gt;-->
-<!--                            <div class="movie-poster"-->
-<!--                                 style="background-image: url('{{ film[5] }}')">-->
-<!--                                <div class="movie-rating">-->
-<!--                                    {{ film[2] }}-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; 电影信息 &ndash;&gt;-->
-<!--                            <div class="movie-info">-->
-<!--                                <h5 class="movie-title">{{ film[1] }}</h5>-->
-<!--                                <div class="movie-meta">-->
-<!--                                    <p class="mb-1">-->
-<!--                                        <i class="fa fa-clock-o"></i>-->
-<!--                                        {{ film[12] }}分钟-->
-<!--                                    </p>-->
-<!--                                    <p class="mb-0">-->
-<!--                                        <i class="fa fa-calendar"></i>-->
-<!--                                        {{ film[11] }}-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                {% else %}-->
-<!--                <div class="col-12">-->
-<!--                    <div class="alert alert-dark text-center">-->
-<!--                        当前分类暂时没有电影哦~-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                {% endfor %}-->
-<!--            </div>-->
-
             <!-- 电影列表 -->
-<div class="row" id="movie-list">
-    {% for film in film_list %}
-    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
-        <div class="movie-card h-100">
-            <a href="/movie/{{ film[0] }}" class="d-block position-relative">
-                <!-- 电影海报 -->
-                <div class="movie-poster" style="background-image: url('{{ film[5] }}')">
-                    <div class="movie-rating">{{ film[2] }}</div>
-                </div>
+            <div class="row" id="movie-list">
+                {% for film in film_list %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card h-100">
+                        <a href="/movie/{{film[0]}}" class="d-block position-relative">
+                            <!-- 电影海报 -->
+                            <div class="movie-poster" style="background-image: url('{{ film[5] }}')">
+                                <div class="movie-rating">{{ film[2] }}</div>
+                            </div>
 
-                <!-- 电影信息 -->
-                <div class="movie-info">
-                    <h5 class="movie-title">{{ film[1] }}</h5>
-                    <div class="movie-meta">
-                        <p class="mb-1"><i class="fa fa-clock-o"></i> {{ film[12] }}分钟</p>
-                        <p class="mb-0"><i class="fa fa-calendar"></i> {{ film[11] }}</p>
+                            <!-- 电影信息 -->
+                            <div class="movie-info">
+                                <h5 class="movie-title">{{ film[1] }}</h5>
+                                <div class="movie-meta">
+                                    <p class="mb-1"><i class="fa fa-clock-o"></i> {{ film[12] }}分钟</p>
+                                    <p class="mb-0"><i class="fa fa-calendar"></i> {{ film[11] }}</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </a>
-        </div>
-    </div>
-    {% else %}
-    <div class="col-12">
-        <div class="alert alert-dark text-center">当前分类暂时没有电影哦~</div>
-    </div>
-    {% endfor %}
-</div>
-
-
+                {% else %}
+                <div class="col-12">
+                    <div class="alert alert-dark text-center">当前分类暂时没有电影哦~</div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </main>
 

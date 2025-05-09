@@ -1,4 +1,6 @@
 import numpy,copy
+import pandas as pd
+
 from flask import Flask, request, render_template, session, redirect, jsonify
 from utils import query
 from utils.getFilmData import *
@@ -114,8 +116,8 @@ def home():
     )
 
 #电影预告片（By Id）
-@app.route('/movie/<int:movieId>',methods=['GET','POST'])
-def movie(movieId):
+@app.route('/moviepre/<int:movieId>',methods=['GET','POST'])
+def moviePre(movieId):
     movieUrl = getMovieUrlById(movieId)
     return render_template('movie.html',movieUrl=movieUrl)
 
@@ -306,6 +308,32 @@ def category(type):
     )
 
 
+# 电影详情页
+@app.route('/movie/<int:movie_id>')
+def movie_detail(movie_id):
+    # 获取电影详细信息
+    movie = getMovieById(movie_id)
+
+    # 处理电影不存在的情况
+    if not movie:
+        return render_template('404.html'), 404
+
+    # 解析评论数据
+    comments = movie.get('comments', [])
+
+    # 处理可能的字符串类型数据
+    if isinstance(comments, str):
+        try:
+            comments = eval(comments)
+        except:
+            comments = []
+
+    return render_template(
+        'movieDetail.html',
+        movie=movie,
+        comments=comments
+    )
+
 if __name__ == '__main__':
-    app.run(debug=True)
-    movie(1)
+    app.run(debug=True,host='0.0.0.0',port=8000)
+    # movie(1)
